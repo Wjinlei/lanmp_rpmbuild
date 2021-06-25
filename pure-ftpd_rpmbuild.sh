@@ -407,7 +407,7 @@ rpmbuild_pure-ftpd(){
     touch pureftpd.pdb
     echo "This is hws build pure-ftpd pid directory" > README
     openssl rand -writerand ~/.rnd
-    openssl req -x509 -nodes -subj /C=CN/ST=Sichuan/L=Chengdu/O=HWS-LINUXMASTER/OU=HWS/CN=$(GetIp)/emailAddress=admin@hws.com -days 3560 -newkey rsa:2048 -keyout pure-ftpd.pem -out pure-ftpd.pem
+    openssl req -x509 -nodes -subj /C=CN/ST=Sichuan/L=Chengdu/O=HWS-LINUXMASTER/OU=HWS/CN=127.0.0.1/emailAddress=admin@hws.com -days 3560 -newkey rsa:2048 -keyout pure-ftpd.pem -out pure-ftpd.pem
     _create_pureftpd_config
     _create_sysv_script
     _create_spec
