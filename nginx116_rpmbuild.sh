@@ -107,7 +107,7 @@ _create_sysv_script() {
 # Description:       nginx service script
 ### END INIT INFO
 
-prefix=/hws.com/hwsmaster/server/nginx-1_16_1
+prefix={nginx_location}
 
 NAME=nginx
 PID_FILE=$prefix/var/run/$NAME.pid
@@ -227,6 +227,7 @@ case "$1" in
         echo "Usage: $0 {start|stop|restart|reload|status|test}"
 esac
 EOF
+    sed -i "s|^prefix={nginx_location}$|prefix=${nginx_location}|g" nginx
 }
 
 _create_spec(){
