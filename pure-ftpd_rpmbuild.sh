@@ -140,7 +140,7 @@ TLS 1
 EOF
 }
 
-_create_sysv_script() {
+_create_sysv_script(){
     cat > pure-ftpd << 'EOF'
 #!/bin/bash
 # chkconfig: 2345 55 25
@@ -156,7 +156,7 @@ _create_sysv_script() {
 # Description:       pure-ftpd service script
 ### END INIT INFO
 
-prefix=/hws.com/hwsmaster/server/pureftpd1_0_49
+prefix={pureftpd_location}
 
 NAME=pure-ftpd
 BIN=$prefix/sbin/$NAME
@@ -321,6 +321,7 @@ case "$1" in
         echo "Usage: $0 {start|stop|restart|reload|status|force-stop}"
 esac
 EOF
+    sed -i "s|^prefix={pureftpd_location}$|prefix=${pureftpd_location}|g" pure-ftpd
 }
 
 _create_spec(){
