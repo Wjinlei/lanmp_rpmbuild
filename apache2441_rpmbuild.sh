@@ -260,13 +260,13 @@ _create_sysv_script(){
 # Description:       apache service script
 ### END INIT INFO
 
-prefix=/hws.com/hwsmaster/server/apache-2_4_41
+prefix={apache_location}
 
 NAME=httpd
 PID_FILE=$prefix/logs/$NAME.pid
 BIN=$prefix/bin/$NAME
 CONFIG_FILE=$prefix/conf/$NAME.conf
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/openssl102/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{openssl_location_lib}
 
 start()
 {
@@ -385,6 +385,8 @@ case "$1" in
         echo "Usage: $0 {start|stop|restart|reload|status|test}"
 esac
 EOF
+    sed -i "s|^prefix={apache_location}$|prefix=${apache_location}|g" httpd
+    sed -i "s|{openssl102_location_lib}|${openssl102_location}/lib|g" httpd
 }
 
 _create_spec(){
