@@ -30,7 +30,7 @@ _install_redis_depends(){
     _success "Install dependencies packages for redis completed..."
 }
 
-_create_sysv_script(){
+_create_sysv_script() {
     cat > redis << 'EOF'
 #!/bin/bash
 # chkconfig: 2345 55 25
@@ -46,7 +46,7 @@ _create_sysv_script(){
 # Description:       redis service script
 ### END INIT INFO
 
-prefix=/hws.com/hwsmaster/server/redis6_0_9
+prefix={redis_location}
 
 NAME=redis-server
 BIN=$prefix/bin/$NAME
@@ -185,7 +185,7 @@ case "$1" in
         echo "Usage: $0 {start|stop|restart|status|reload}"
 esac
 EOF
-
+    sed -i "s|^prefix={redis_location}$|prefix=${redis_location}|g" redis
 }
 
 _create_spec(){
