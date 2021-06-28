@@ -382,6 +382,10 @@ install -D -m 0644 \$RPM_SOURCE_DIR/README \$RPM_BUILD_ROOT/${pureftpd_location}
 chkconfig --add pure-ftpd >/dev/null 2>&1
 /etc/init.d/pure-ftpd start
 
+%preun
+chkconfig --del pure-ftpd >/dev/null 2>&1
+/etc/init.d/pure-ftpd stop
+
 %files
 ${pureftpd_location}
 /etc/init.d/pure-ftpd

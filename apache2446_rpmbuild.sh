@@ -449,6 +449,10 @@ useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
 chkconfig --add httpd >/dev/null 2>&1
 /etc/init.d/httpd start
 
+%preun
+chkconfig --del httpd >/dev/null 2>&1
+/etc/init.d/httpd stop
+
 %files
 ${apache_location}
 /etc/init.d/httpd

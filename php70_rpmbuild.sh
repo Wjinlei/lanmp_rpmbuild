@@ -671,6 +671,10 @@ useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
 chkconfig --add php70 >/dev/null 2>&1
 /etc/init.d/php70 start
 
+%preun
+chkconfig --del php70 >/dev/null 2>&1
+/etc/init.d/php70 stop
+
 %files
 ${php70_location}
 /etc/init.d/php70

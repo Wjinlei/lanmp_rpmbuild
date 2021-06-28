@@ -300,6 +300,10 @@ useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
 chkconfig --add nginx >/dev/null 2>&1
 /etc/init.d/nginx start
 
+%preun
+chkconfig --del nginx >/dev/null 2>&1
+/etc/init.d/nginx stop
+
 %files
 ${nginx_location}/etc/fastcgi.conf
 ${nginx_location}/etc/fastcgi.conf.default

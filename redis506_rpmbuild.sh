@@ -227,6 +227,10 @@ sed -i "s@^# bind 127.0.0.1@bind 127.0.0.1@" ${redis_location}/etc/redis.conf
 chkconfig --add redis >/dev/null 2>&1
 /etc/init.d/redis start
 
+%preun
+chkconfig --del redis >/dev/null 2>&1
+/etc/init.d/redis stop
+
 %files
 ${redis_location}
 /etc/init.d/redis

@@ -672,6 +672,10 @@ useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
 chkconfig --add php56 >/dev/null 2>&1
 /etc/init.d/php56 start
 
+%preun
+chkconfig --del php56 >/dev/null 2>&1
+/etc/init.d/php56 stop
+
 %files
 ${php56_location}
 /etc/init.d/php56

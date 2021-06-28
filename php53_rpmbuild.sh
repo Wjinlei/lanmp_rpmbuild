@@ -674,6 +674,10 @@ useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
 chkconfig --add php53 >/dev/null 2>&1
 /etc/init.d/php53 start
 
+%preun
+chkconfig --del php53 >/dev/null 2>&1
+/etc/init.d/php53 stop
+
 %files
 ${php53_location}
 /etc/init.d/php53
