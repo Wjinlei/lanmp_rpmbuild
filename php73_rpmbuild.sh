@@ -361,7 +361,7 @@ _install_freetype() {
 }
 
 _create_sysv_script(){
-    cat > php73 <<'EOF'
+    cat > php73 << 'EOF'
 #!/bin/bash
 # chkconfig: 2345 55 25
 # description: php-fpm service script
@@ -376,7 +376,7 @@ _create_sysv_script(){
 # Description:       php-fpm service script
 ### END INIT INFO
 
-prefix=/hws.com/hwsmaster/server/php-7_3_14
+prefix={php-fpm_location}
 
 NAME=php-fpm
 BIN=$prefix/sbin/$NAME
@@ -545,6 +545,7 @@ case "$1" in
         echo "Usage: $0 {start|stop|restart|reload|status|force-stop}"
 esac
 EOF
+    sed -i "s|^prefix={php-fpm_location}$|prefix=${php73_location}|g" php73
 }
 
 _create_fpm_config() {
