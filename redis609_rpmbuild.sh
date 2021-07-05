@@ -203,7 +203,6 @@ Source0:        ${redis609_filename}.tar.gz
 
 BuildRoot:      %_topdir/BUILDROOT
 BuildRequires:  gcc,make
-Requires:       centos-release-scl,devtoolset-9-gcc,devtoolset-9-gcc-c++,devtoolset-9-binutils
 
 %description
 redis 6.0.9 build for hws.com
