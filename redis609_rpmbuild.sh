@@ -208,7 +208,6 @@ BuildRequires:  gcc,make
 redis 6.0.9 build for hws.com
 
 %prep
-source /opt/rh/devtoolset-9/enable >/dev/null 2>&1
 tar zxf \$RPM_SOURCE_DIR/${redis609_filename}.tar.gz
 
 %build
