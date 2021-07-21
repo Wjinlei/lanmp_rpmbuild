@@ -272,6 +272,7 @@ cd ${nginx116_filename}
 --http-scgi-temp-path=${nginx_location}/var/tmp/scgi \
 --with-pcre=\$RPM_BUILD_DIR/${pcre_filename} \
 --with-openssl=\$RPM_BUILD_DIR/${openssl102_filename} \
+--with-compat \
 --user=www \
 --group=www \
 --with-stream \
