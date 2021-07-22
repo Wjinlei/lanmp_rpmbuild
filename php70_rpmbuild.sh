@@ -118,7 +118,7 @@ _install_php_depend(){
         ln -sf /usr/include/sqlext.h /usr/local/include/
     fi
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${php70_location}
 }
 
@@ -574,7 +574,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/php70.spec << EOF
-Name:           php70
+Name:           hws-php70
 Version:        7.0.33
 Release:        1%{?dist}
 Summary:        PHP 7.0.33
@@ -669,7 +669,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php70_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php70_filename}/php.ini-production \$RPM_BUILD_ROOT/${php70_location}/etc/php.ini
 
 %post
-useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php70 >/dev/null 2>&1
 /etc/init.d/php70 start
 

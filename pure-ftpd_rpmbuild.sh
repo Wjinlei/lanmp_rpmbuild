@@ -32,7 +32,7 @@ _install_pureftpd_depends(){
         done
     fi
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${pureftpd_location}
     _success "Install dependencies packages for Pureftpd completed..."
 }
@@ -326,7 +326,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/pure-ftpd.spec << EOF
-Name:           pure-ftpd
+Name:           hws-pureftpd
 Version:        1.0.49
 Release:        1%{?dist}
 Summary:        pure-ftpd 1.0.49

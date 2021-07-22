@@ -118,7 +118,7 @@ _install_php_depend(){
         ln -sf /usr/include/sqlext.h /usr/local/include/
     fi
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${php80_location}
 }
 
@@ -577,7 +577,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/php80.spec << EOF
-Name:           php80
+Name:           hws-php80
 Version:        8.0.0
 Release:        1%{?dist}
 Summary:        PHP 8.0.0
@@ -662,7 +662,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php80_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php80_filename}/php.ini-production \$RPM_BUILD_ROOT/${php80_location}/etc/php.ini
 
 %post
-useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php80 >/dev/null 2>&1
 /etc/init.d/php80 start
 

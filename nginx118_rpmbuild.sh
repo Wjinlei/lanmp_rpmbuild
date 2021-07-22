@@ -32,7 +32,7 @@ _install_nginx_depend(){
         done
     fi
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${nginx_location}
     _success "Install dependencies packages for Nginx completed..."
 }
@@ -232,7 +232,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/nginx118.spec << EOF
-Name:           nginx
+Name:           hws-nginx
 Version:        1.18.0
 Release:        1%{?dist}
 Summary:        Nginx Server
@@ -298,7 +298,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/nginx-wwwlogs \$RPM_BUILD_ROOT/etc/logrotate
 mkdir -p ${nginx_location}/var/{log,run,lock,tmp}
 mkdir -p ${nginx_location}/var/tmp/{client,proxy,fastcgi,uwsgi}
 mkdir -p ${nginx_location}/etc/vhost
-useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add nginx >/dev/null 2>&1
 /etc/init.d/nginx start
 

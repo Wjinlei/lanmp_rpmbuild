@@ -39,7 +39,7 @@ _install_apache_depend(){
     _install_curl
 
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${apache_location}
     _success "Install dependencies packages for Apache completed..."
 }
@@ -392,7 +392,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/apache2446.spec << EOF
-Name:           httpd
+Name:           hws-httpd
 Version:        2.4.46
 Release:        1%{?dist}
 Summary:        Apache Http Server
@@ -448,7 +448,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/apache-logs \$RPM_BUILD_ROOT/etc/logrotate.d
 install -D -m 0644 \$RPM_SOURCE_DIR/apache-wwwlogs \$RPM_BUILD_ROOT/etc/logrotate.d/apache-wwwlogs
 
 %post
-useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add httpd >/dev/null 2>&1
 /etc/init.d/httpd start
 

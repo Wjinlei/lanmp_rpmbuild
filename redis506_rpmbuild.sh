@@ -176,7 +176,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/redis506.spec << EOF
-Name:           redis
+Name:           hws-redis
 Version:        5.0.6
 Release:        1%{?dist}
 Summary:        redis 5.0.6

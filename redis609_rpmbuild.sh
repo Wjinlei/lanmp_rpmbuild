@@ -190,7 +190,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/redis609.spec << EOF
-Name:           redis
+Name:           hws-redis
 Version:        6.0.9
 Release:        1%{?dist}
 Summary:        redis 6.0.9

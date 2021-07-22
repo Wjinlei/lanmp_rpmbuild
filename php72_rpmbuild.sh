@@ -118,7 +118,7 @@ _install_php_depend(){
         ln -sf /usr/include/sqlext.h /usr/local/include/
     fi
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${php72_location}
 }
 
@@ -574,7 +574,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/php72.spec << EOF
-Name:           php72
+Name:           hws-php72
 Version:        7.2.27
 Release:        1%{?dist}
 Summary:        PHP 7.2.27
@@ -667,7 +667,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php72_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php72_filename}/php.ini-production \$RPM_BUILD_ROOT/${php72_location}/etc/php.ini
 
 %post
-useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php72 >/dev/null 2>&1
 /etc/init.d/php72 start
 

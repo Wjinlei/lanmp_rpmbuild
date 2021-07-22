@@ -118,7 +118,7 @@ _install_php_depend(){
         ln -sf /usr/include/sqlext.h /usr/local/include/
     fi
     id -u www >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -U www -r -d /dev/null -s /sbin/nologin
+    [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
     mkdir -p ${php54_location}
 }
 
@@ -574,7 +574,7 @@ EOF
 
 _create_spec(){
     cat > ~/rpmbuild/SPECS/php54.spec << EOF
-Name:           php54
+Name:           hws-php54
 Version:        5.4.45
 Release:        1%{?dist}
 Summary:        PHP 5.4.45
@@ -669,7 +669,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php54_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php54_filename}/php.ini-production \$RPM_BUILD_ROOT/${php54_location}/etc/php.ini
 
 %post
-useradd -M -U www -r -d /dev/null -s /sbin/nologin >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php54 >/dev/null 2>&1
 /etc/init.d/php54 start
 
