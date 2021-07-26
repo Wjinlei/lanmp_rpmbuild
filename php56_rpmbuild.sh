@@ -670,6 +670,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php56_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php56_filename}/php.ini-production \$RPM_BUILD_ROOT/${php56_location}/etc/php.ini
 
 %post
+id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php56 >/dev/null 2>&1
 /etc/init.d/php56 start

@@ -298,6 +298,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/nginx-wwwlogs \$RPM_BUILD_ROOT/etc/logrotate
 mkdir -p ${nginx_location}/var/{log,run,lock,tmp}
 mkdir -p ${nginx_location}/var/tmp/{client,proxy,fastcgi,uwsgi}
 mkdir -p ${nginx_location}/etc/vhost
+id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add nginx >/dev/null 2>&1
 /etc/init.d/nginx start

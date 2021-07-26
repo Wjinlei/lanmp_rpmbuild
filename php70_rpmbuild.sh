@@ -669,6 +669,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php70_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php70_filename}/php.ini-production \$RPM_BUILD_ROOT/${php70_location}/etc/php.ini
 
 %post
+id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php70 >/dev/null 2>&1
 /etc/init.d/php70 start

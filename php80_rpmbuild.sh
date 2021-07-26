@@ -662,6 +662,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/default.conf \$RPM_BUILD_ROOT/${php80_locati
 install -D -m 0644 \$RPM_BUILD_DIR/${php80_filename}/php.ini-production \$RPM_BUILD_ROOT/${php80_location}/etc/php.ini
 
 %post
+id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php80 >/dev/null 2>&1
 /etc/init.d/php80 start

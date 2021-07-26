@@ -448,6 +448,7 @@ install -D -m 0644 \$RPM_SOURCE_DIR/apache-logs \$RPM_BUILD_ROOT/etc/logrotate.d
 install -D -m 0644 \$RPM_SOURCE_DIR/apache-wwwlogs \$RPM_BUILD_ROOT/etc/logrotate.d/apache-wwwlogs
 
 %post
+id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add httpd >/dev/null 2>&1
 /etc/init.d/httpd start

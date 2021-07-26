@@ -380,6 +380,8 @@ install -D -m 0600 \$RPM_SOURCE_DIR/pure-ftpd.pem \$RPM_BUILD_ROOT/etc/ssl/priva
 install -D -m 0644 \$RPM_SOURCE_DIR/README \$RPM_BUILD_ROOT/${pureftpd_location}/var/run/README
 
 %post
+id -u www >/dev/null 2>&1
+[ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add pure-ftpd >/dev/null 2>&1
 /etc/init.d/pure-ftpd start
 
