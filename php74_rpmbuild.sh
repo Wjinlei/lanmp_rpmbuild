@@ -666,11 +666,14 @@ install -D -m 0644 \$RPM_BUILD_DIR/${php74_filename}/php.ini-production \$RPM_BU
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php74 >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add php74"
 /etc/init.d/php74 start
+exit 0
 
 %preun
+/etc/init.d/php74 stop >/dev/null 2>&1
 chkconfig --del php74 >/dev/null 2>&1
-/etc/init.d/php74 stop
+exit 0
 
 %files
 ${php74_location}

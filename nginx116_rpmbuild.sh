@@ -301,11 +301,14 @@ mkdir -p ${nginx_location}/etc/vhost
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add nginx >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add nginx"
 /etc/init.d/nginx start
+exit 0
 
 %preun
+/etc/init.d/nginx stop >/dev/null 2>&1
 chkconfig --del nginx >/dev/null 2>&1
-/etc/init.d/nginx stop
+exit 0
 
 %files
 ${nginx_location}/etc/fastcgi.conf

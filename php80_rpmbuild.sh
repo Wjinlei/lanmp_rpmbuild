@@ -665,11 +665,14 @@ install -D -m 0644 \$RPM_BUILD_DIR/${php80_filename}/php.ini-production \$RPM_BU
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php80 >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add php80"
 /etc/init.d/php80 start
+exit 0
 
 %preun
+/etc/init.d/php80 stop >/dev/null 2>&1
 chkconfig --del php80 >/dev/null 2>&1
-/etc/init.d/php80 stop
+exit 0
 
 %files
 ${php80_location}

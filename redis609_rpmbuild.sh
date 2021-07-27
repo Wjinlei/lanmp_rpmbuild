@@ -239,11 +239,14 @@ sed -i 's@daemonize no@daemonize yes@' ${redis_location}/etc/redis.conf
 sed -i "s@port 6379@port ${redis_port}@" ${redis_location}/etc/redis.conf
 sed -i "s@^# bind 127.0.0.1@bind 127.0.0.1@" ${redis_location}/etc/redis.conf
 chkconfig --add redis >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add redis"
 /etc/init.d/redis start
+exit 0
 
 %preun
+/etc/init.d/redis stop >/dev/null 2>&1
 chkconfig --del redis >/dev/null 2>&1
-/etc/init.d/redis stop
+exit 0
 
 %files
 ${redis_location}

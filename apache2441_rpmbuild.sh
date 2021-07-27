@@ -451,11 +451,14 @@ install -D -m 0644 \$RPM_SOURCE_DIR/apache-wwwlogs \$RPM_BUILD_ROOT/etc/logrotat
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add httpd >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add httpd"
 /etc/init.d/httpd start
+exit 0
 
 %preun
+/etc/init.d/httpd stop >/dev/null 2>&1
 chkconfig --del httpd >/dev/null 2>&1
-/etc/init.d/httpd stop
+exit 0
 
 %files
 ${apache_location}

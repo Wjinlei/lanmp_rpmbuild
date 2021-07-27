@@ -669,11 +669,14 @@ install -D -m 0644 \$RPM_BUILD_DIR/${php73_filename}/php.ini-production \$RPM_BU
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php73 >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add php73"
 /etc/init.d/php73 start
+exit 0
 
 %preun
+/etc/init.d/php73 stop >/dev/null 2>&1
 chkconfig --del php73 >/dev/null 2>&1
-/etc/init.d/php73 stop
+exit 0
 
 %files
 ${php73_location}

@@ -383,11 +383,14 @@ install -D -m 0644 \$RPM_SOURCE_DIR/README \$RPM_BUILD_ROOT/${pureftpd_location}
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add pure-ftpd >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add pure-ftpd"
 /etc/init.d/pure-ftpd start
+exit 0
 
 %preun
+/etc/init.d/pure-ftpd stop >/dev/null 2>&1
 chkconfig --del pure-ftpd >/dev/null 2>&1
-/etc/init.d/pure-ftpd stop
+exit 0
 
 %files
 ${pureftpd_location}

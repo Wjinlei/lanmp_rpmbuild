@@ -672,11 +672,14 @@ install -D -m 0644 \$RPM_BUILD_DIR/${php54_filename}/php.ini-production \$RPM_BU
 id -u www >/dev/null 2>&1
 [ $? -ne 0 ] && useradd -M -U www -d /home/www -s /sbin/nologin
 chkconfig --add php54 >/dev/null 2>&1
+[ $? -ne 0 ] && echo "[ERROR]: chkconfig --add php54"
 /etc/init.d/php54 start
+exit 0
 
 %preun
+/etc/init.d/php54 stop >/dev/null 2>&1
 chkconfig --del php54 >/dev/null 2>&1
-/etc/init.d/php54 stop
+exit 0
 
 %files
 ${php54_location}
